@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            BigInt  @id @default(dbgenerated("nextval('uqid'::regclass)")) @db.BigInt
+  login         String  @unique(map: "UQ_55edc17a3b5c404a5e3b2ea2aedc") @db.VarChar
+  name          String  @db.VarChar
+  password      String  @db.VarChar
+  avatar        String? @db.VarChar
+  refresh_token String? @db.VarChar
+
+  @@map("users")
+}
